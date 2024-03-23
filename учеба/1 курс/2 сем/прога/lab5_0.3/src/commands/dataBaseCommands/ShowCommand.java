@@ -1,24 +1,35 @@
 package commands.dataBaseCommands;
 
+import Interfaces.Executable;
 import commands.absctractCommands.DataBaseCommand;
 import database.DataBase;
-import exceptions.CommandException;
-import file.FileProcessor;
 import lombok.EqualsAndHashCode;
+import lombok.SneakyThrows;
 
-import java.io.FileNotFoundException;
-
-import static javax.print.attribute.standard.ReferenceUriSchemesSupported.FILE;
+import java.util.stream.Collectors;
 
 @EqualsAndHashCode
-public class ShowCommand extends DataBaseCommand {
+public class ShowCommand extends DataBaseCommand implements Executable {
 
+    final DataBase dataBase;
+
+    public ShowCommand(DataBase dataBase) {
+        this.dataBase = dataBase;
+    }
+
+    @SneakyThrows
+    @Override
+    public String ExecuteCommand(String... args)  {
+
+        return dataBase.tickets.stream().map(ticket ->
+            ticket.toString() + "\n"
+        ).collect(Collectors.joining());
+
+
+    }
 
     @Override
-    public String ExecuteCommand(String... args) throws CommandException, FileNotFoundException {
-
-        String result = DataBase.getTicketFields();
-
-        return result;
+    public String getCommandArguments() {
+        return "";
     }
 }

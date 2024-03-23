@@ -1,11 +1,10 @@
 package commands.absctractCommands;
 
+import Interfaces.Executable;
 import commands.absctractCommands.Command;
 import exceptions.CommandException;
 
-public class FileCommand extends Command {
+public abstract class FileCommand extends Command implements Executable {
     @Override
-    public String ExecuteCommand(String... args) throws CommandException {
-        return null;
-    }
+    public abstract String ExecuteCommand(String... args);
 }

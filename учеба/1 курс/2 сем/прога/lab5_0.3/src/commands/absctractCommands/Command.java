@@ -1,10 +1,9 @@
 package commands.absctractCommands;
 
-import exceptions.CommandException;
+import Interfaces.Executable;
 
-import java.io.FileNotFoundException;
-
-public abstract class Command {
-    public abstract String ExecuteCommand(String... args) throws CommandException, FileNotFoundException;
+public abstract class Command implements Executable {
+    public abstract String ExecuteCommand(String... args);
+    public abstract String getCommandArguments();
     String GET_ARGS_DESCRIPTION;
 }

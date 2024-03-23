@@ -1,12 +1,13 @@
 package commands.processorsCommands;
 
 import commands.CommandProcessor;
+import commands.absctractCommands.Command;
 import commands.absctractCommands.ProcessorsCommand;
-import exceptions.CommandException;
 import lombok.EqualsAndHashCode;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @EqualsAndHashCode
@@ -17,11 +18,18 @@ public class HelpCommand extends ProcessorsCommand {
 
 
     @Override
-    public String ExecuteCommand(String... args) throws CommandException {
+    public String ExecuteCommand(String... args)  {
         List<String> AllCommands= new ArrayList<>();
-        for (String commandName : processor.getCommands().keySet()){
-            AllCommands.add(commandName + "\n");
+        for (Map.Entry<String, Command> commandName : processor.getCommands().entrySet()){
+            AllCommands.add(commandName.getKey() +commandName.getValue().getCommandArguments() + "\n");
+
+
         }
         return AllCommands.stream().collect(Collectors.joining());
+    }
+
+    @Override
+    public String getCommandArguments() {
+        return "";
     }
 }

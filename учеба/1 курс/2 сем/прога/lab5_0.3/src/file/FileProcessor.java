@@ -1,42 +1,65 @@
 package file;
 
-import commands.CommandProcessor;
+import com.opencsv.bean.*;
+import com.opencsv.exceptions.CsvDataTypeMismatchException;
+import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
+import commands.*;
 import commands.fileCommands.ExecuteScriptCommand;
 import commands.fileCommands.SaveCommand;
+import package1.*;
 import java.io.*;
+
+import java.util.List;
+
+
 
 public class FileProcessor {
 
     private final CommandProcessor commandProcessor;
     public static final String CSVFILE = "/Users/rom4ikk/Desktop/учеба/1 курс/2 сем/прога/lab5_0.3/src/file/file.csv";
+    Parser parser = new Parser();
     public FileProcessor(CommandProcessor commandProcessor){
         this.commandProcessor = commandProcessor;
         commandProcessor.getCommands().put("execute_script", new ExecuteScriptCommand());
-        commandProcessor.getCommands().put("save",new SaveCommand());
     }
     public static class Parser {
 
-        public static String csvToString(String CSVFILE, Boolean passFirstString) {
+        public void writeToFile(List<Ticket> collection) {
+            MappingStrategy<Ticket> strategy = new HeaderColumnNameMappingStrategy<>();
 
-            String returner = "";
-            String line;
-            try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(CSVFILE)))) {
+            strategy.setType(Ticket.class);
 
-                while ((line = bufferedReader.readLine()) != null) {
-                    if (passFirstString) {
-                        passFirstString = false;
-                    } else {
-                        returner += line + "\n";
-                    }
-                }
-            } catch (FileNotFoundException e) {
-                System.out.println("Файл не найден((");
 
+            try (FileWriter writer = new FileWriter(CSVFILE)) {
+                new StatefulBeanToCsvBuilder(writer)
+                        .withSeparator(';')
+                        .withApplyQuotesToAll(false)
+                        .withMappingStrategy(strategy)
+                        .build()
+                        .write(collection);
             } catch (IOException e) {
-                e.printStackTrace();
+                throw new RuntimeException(e);
+            } catch (CsvRequiredFieldEmptyException e) {
+                throw new RuntimeException(e);
+            } catch (CsvDataTypeMismatchException e) {
+                throw new RuntimeException(e);
             }
-            return returner;
-        }
-    }
 
+
+        }
+        public List<Ticket> readFromFile() throws IOException {
+            FileReader reader = new FileReader(CSVFILE);
+            List<Ticket> result = new CsvToBeanBuilder(reader)
+                    .withType(Ticket.class)
+                    .withSkipLines(0)
+                    .withSeparator(';')
+                    .withIgnoreQuotations(true)
+                    .withThrowExceptions(true)
+
+                    .build()
+                    .parse();
+            return result;
+        }
+
+    }
 }

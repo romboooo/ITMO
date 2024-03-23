@@ -2,6 +2,7 @@ package commands;
 
 import commands.absctractCommands.Command;
 import commands.processorsCommands.HelpCommand;
+import exceptions.CommandDoesntExists;
 import exceptions.CommandException;
 import lombok.Getter;
 
@@ -17,16 +18,23 @@ public class CommandProcessor {
     }
 
 
-    public String executeCommand(String input){
-        String commandName = input.split(" ")[0];
+    public String executeCommand(String input) throws CommandDoesntExists {
 
-        try {
-            return commands.get(commandName).ExecuteCommand((String[]) null);
-        } catch (CommandException e) {
-            System.out.println(e.getMessage());
-            return "";
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+        String[] commandSplit = input.split(" ", 2);
+
+        String commandName = commandSplit[0];
+        String[] commandArguments = null;
+
+        if (commandSplit.length == 2) {
+            commandArguments = commandSplit[1].split(" ");
+        }
+
+
+        if (commands.containsKey(commandName)) {
+
+            return commands.get(commandName).ExecuteCommand(commandArguments);
+        } else {
+            throw new CommandDoesntExists(input);
         }
     }
 }
