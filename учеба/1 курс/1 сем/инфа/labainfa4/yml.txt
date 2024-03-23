@@ -1,0 +1,18 @@
+
+	even-week : 
+		saturday: 
+			fitness-crossfit: 
+				classroom : 4404,
+				time : 08:20 - 09:50,
+				address : Ул. Ломоносова, д. 9, лит. Б,
+				teacher : Трифонов Владислав Олегович,
+			math-lecture : 
+				classroom : 1405,
+				time : 13:30 - 15:00,
+				address : Кронверкский пр., д.49, лит.А,
+				teacher : Правдин Константин Владимирович,
+			math-practice : 
+				classroom : 2201,
+				time : 13:20 - 16:50,
+				address : Кронверкский пр., д.49, лит.А,
+				teacher : Исаева Татьяна Тимофеевна,

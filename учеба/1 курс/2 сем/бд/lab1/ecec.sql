@@ -1,0 +1,2 @@
+ALTER TABLE NEWS ADD FOREIGN KEY (source) REFERENCES Spaceship(id);
+

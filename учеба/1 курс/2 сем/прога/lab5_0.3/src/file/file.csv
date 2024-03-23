@@ -1,0 +1,2 @@
+id; name; coordinates; price; discount; comment; type; person
+7250; roma; 2; 300; 10; "Любит члены"; TicketType.USUAL; ROM4
