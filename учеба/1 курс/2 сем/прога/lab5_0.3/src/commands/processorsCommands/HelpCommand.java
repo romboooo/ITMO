@@ -12,6 +12,8 @@ import java.util.stream.Collectors;
 
 @EqualsAndHashCode
 public class HelpCommand extends ProcessorsCommand {
+
+
     public HelpCommand(CommandProcessor processor) {
         super(processor);
     }

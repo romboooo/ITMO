@@ -30,11 +30,12 @@ public class CountGreaterThanPriceCommand extends DataBaseCommand implements Exe
                 }
             }
             return String.valueOf(count);
-        } catch (NumberFormatException e){
-            return "argument \"price\" should be a number. '" + args[0] +"' is not a number. Try it one more time";
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return "argument entered incorrectly. please try it one more time";
 
+        } catch (NumberFormatException e) {
+            return "argument \"price\" should be a number. '" + args[0] + "' is not a number. Try it one more time";
         }
-
     }
 
     @Override

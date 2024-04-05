@@ -20,23 +20,28 @@ public class FilterGreaterThanCommentCommand extends DataBaseCommand implements 
 
     @Override
     public String ExecuteCommand(String... args) {
-        if (args == null) {
-            return "command expects argument. please try it one more time";
-        }
-        int lenght = args[0].length();
+       try {
 
-        List<Ticket> ticketList = new ArrayList();
+           if (args == null) {
+               return "command expects argument. please try it one more time";
+           }
+           int lenght = args[0].length();
 
-        for (Ticket ticket : dataBase.tickets){
-            if(ticket.getComment().length() > lenght){
-                ticketList.add(ticket);
-            }
-        }
+           List<Ticket> ticketList = new ArrayList();
 
-        return ticketList.stream()
-                .map(String::valueOf)
-                .map(line -> line + "\n")
-                .collect(Collectors.joining());
+           for (Ticket ticket : dataBase.tickets) {
+               if (ticket.getComment().length() > lenght) {
+                   ticketList.add(ticket);
+               }
+           }
+
+           return ticketList.stream()
+                   .map(String::valueOf)
+                   .map(line -> line + "\n")
+                   .collect(Collectors.joining());
+       }catch (ArrayIndexOutOfBoundsException e){
+           return "argument entered incorrectly. please try it one more time";
+       }
     }
 
     @Override

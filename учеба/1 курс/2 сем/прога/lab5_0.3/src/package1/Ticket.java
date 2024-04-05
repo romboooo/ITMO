@@ -121,10 +121,4 @@ public class Ticket {
         }
     }
 
-//    public static Date createRandomDate(){
-//        Random randomYear = new Random();
-//        Random randomMonth = new Random();
-//        Random randomDay = new Random();
-//
-//    }
 }

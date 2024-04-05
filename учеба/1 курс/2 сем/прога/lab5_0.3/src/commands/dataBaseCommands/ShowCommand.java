@@ -20,7 +20,7 @@ public class ShowCommand extends DataBaseCommand implements Executable {
     @SneakyThrows
     @Override
     public String ExecuteCommand(String... args)  {
-
+        System.out.println("if you don't see your ticket, check data in file.csv");
         return dataBase.tickets.stream().map(ticket ->
             ticket.toString() + "\n"
         ).collect(Collectors.joining());

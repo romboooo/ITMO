@@ -1,17 +1,12 @@
 package database;
 
-import com.opencsv.CSVReader;
-import com.opencsv.bean.CsvToBeanBuilder;
 import commands.CommandProcessor;
 import commands.dataBaseCommands.*;
-import file.FileProcessor;
 import package1.Coordinates;
 import package1.Person;
 import package1.Ticket;
 import package1.TicketType;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.util.*;
 
 public class DataBase {
@@ -21,27 +16,15 @@ public class DataBase {
 
 
 
-    final int MIN_ID = 0;
-
-    public void addMinAndMaxToList(){
-        ArrayOfUniqueID.add(MIN_ID);
-
-    }
-
-
-
-
-
-
     public DataBase(CommandProcessor commandProcessor){
         this.commandProcessor = commandProcessor;
         commandProcessor.getCommands().put("add", new AddCommand(this, commandProcessor));
-        commandProcessor.getCommands().put("add_if_max", new AddIfMaxCommand());
-        commandProcessor.getCommands().put("add_if_min", new AddIfMinCommand());
+        commandProcessor.getCommands().put("add_if_max", new AddIfMaxCommand(this, commandProcessor));
+        commandProcessor.getCommands().put("add_if_min", new AddIfMinCommand(this, commandProcessor));
         commandProcessor.getCommands().put("clear", new ClearCommand(this));
         commandProcessor.getCommands().put("count_greater_than_price", new CountGreaterThanPriceCommand(this));
         commandProcessor.getCommands().put("filter_greater_than_comment", new FilterGreaterThanCommentCommand(this));
-        commandProcessor.getCommands().put("info", new InfoCommand());
+        commandProcessor.getCommands().put("info", new InfoCommand(this));
         commandProcessor.getCommands().put("print_field_descending_price", new PrintFieldDescendingPriceCommand(this));
         commandProcessor.getCommands().put("remove_by_id", new RemoveByIdCommand(this));
         commandProcessor.getCommands().put("remove_first", new RemoveFirstCommand(this));

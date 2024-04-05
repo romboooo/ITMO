@@ -5,6 +5,7 @@ import commands.consoleCommands.ExitCommand;
 import exceptions.CommandDoesntExists;
 import lombok.Data;
 
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 @Data
 public class ConsoleProcessor {
@@ -22,17 +23,19 @@ public class ConsoleProcessor {
 
             System.out.println("Type \"help\" for display available commands:");
             Scanner scanner = new Scanner(System.in);
+            try {
+                while (true) {
+                    String input = scanner.nextLine();
+                    try {
+                        System.out.println(commandProcessor.executeCommand(input));
+                    } catch (CommandDoesntExists e) {
+                        System.err.println(e.getMessage());
+                    }
 
-            while (true) {
-                String input = scanner.nextLine();
-                try {
-                    System.out.println(commandProcessor.executeCommand(input));
-                } catch (CommandDoesntExists e) {
-                    System.err.println(e.getMessage());
                 }
-
+            } catch (NoSuchElementException e){
+                System.err.println("консоль остановлена");
             }
-
         }
     }
 

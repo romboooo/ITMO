@@ -76,7 +76,7 @@ public class AddCommand extends DataBaseCommand implements Executable {
 
     public void enterX(Scanner scanner){
         System.out.println("enter x");
-        String scannerX = scanner.nextLine();
+        String scannerX = scanner.nextLine().strip();
 
         try {
             if (Ticket.Checker.checkX(Float.valueOf(scannerX))) {
@@ -96,7 +96,7 @@ public class AddCommand extends DataBaseCommand implements Executable {
     }
     public void enterY(Scanner scanner){
         System.out.println("enter y");
-        String scannerY = scanner.nextLine();
+        String scannerY = scanner.nextLine().strip();
 
         try {
             if (Ticket.Checker.checkY(Float.valueOf(scannerY))) {
@@ -116,7 +116,7 @@ public class AddCommand extends DataBaseCommand implements Executable {
     }
     public void enterPrice(Scanner scanner){
         System.out.println("enter price");
-        String scannerPrice = scanner.nextLine();
+        String scannerPrice = scanner.nextLine().strip();
 
         try {
             if (Ticket.Checker.checkPrice(Long.valueOf(scannerPrice))) {
@@ -136,11 +136,9 @@ public class AddCommand extends DataBaseCommand implements Executable {
 
     public void enterDiscount(Scanner scanner){
          System.out.println("enter discount (it must be bigger than 0 and less than 101)");
-         String scannerDiscount = scanner.nextLine();
+         String scannerDiscount = scanner.nextLine().strip();
 
          try {
-
-
             if(Ticket.Checker.checkDiscount(Integer.parseInt(scannerDiscount))){
                 int discount = Integer.parseInt(scannerDiscount);
                 ticketFields.put("discount", String.valueOf(discount));
@@ -175,10 +173,10 @@ public class AddCommand extends DataBaseCommand implements Executable {
 
     public void enterType(Scanner scanner){
 
-        System.out.println("enter type");
+        System.out.println("enter type (you can write it in lower case)");
         System.out.println("VIP / USUAL / BUDGETARY / CHEAP");
 
-        String scannerType = scanner.nextLine();
+        String scannerType = scanner.nextLine().strip().toUpperCase();
         if((scannerType.equals("VIP")) || (scannerType.equals("USUAL")) || (scannerType.equals("BUDGETARY")) || (scannerType.equals("CHEAP"))){
             String type = scannerType;
             ticketFields.put("type",type);
@@ -193,7 +191,7 @@ public class AddCommand extends DataBaseCommand implements Executable {
     public void enterWeight(Scanner scanner){
         System.out.println("enter weight of person");
 
-        String scannerWeight = scanner.nextLine();
+        String scannerWeight = scanner.nextLine().strip();
         try{
             if (Integer.valueOf(scannerWeight) > 0){
                 int weight = Integer.valueOf(scannerWeight);
@@ -213,7 +211,7 @@ public class AddCommand extends DataBaseCommand implements Executable {
 
     public void enterPassportID(Scanner scanner){
         System.out.println("enter passportID");
-        String scannerPassportID = scanner.nextLine();
+        String scannerPassportID = scanner.nextLine().strip();
 
         if (scannerPassportID.length() >= 4){
             String passportID = scannerPassportID;
@@ -274,9 +272,8 @@ public class AddCommand extends DataBaseCommand implements Executable {
         dataBase.tickets.add(ticket);
         ticketFields.clear();
 
-        System.out.println("ticket was created");
-
-
+        System.out.println("ticket was created, don't forget to save it!");
+        
         return "Type \"help\" for display available commands:";
     }
 

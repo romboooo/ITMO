@@ -15,7 +15,7 @@ public class ClearCommand extends DataBaseCommand implements Executable {
     @Override
     public String ExecuteCommand(String... args)  {
         dataBase.tickets.clear();
-        return "collection is clean!";
+        return "collection is clear!";
     }
 
     @Override

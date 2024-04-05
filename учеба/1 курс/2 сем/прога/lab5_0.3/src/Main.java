@@ -37,6 +37,6 @@ public class Main {
 // tasks:
 
 //переменная окружения
-//команды: execute_script, add_if_min, add_if_max
+//команды: execute_script
 //работа со скриптом
 //добавить exceptions
